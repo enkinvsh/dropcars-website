@@ -44,7 +44,7 @@ body {
     margin: 0;
     font-family: var(--font-family);
     line-height: 1.7;
-    font-size: 1.05rem;
+    font-size: 1.05rem; /* !!! ИЗМЕНЕНО: Базовый размер шрифта, чтобы h1 лучше масштабировался !!! */
     font-weight: 400;
     background-color: #111;
 }
@@ -139,7 +139,16 @@ h2 {
     padding: 6rem 1rem 4rem;
     box-sizing: border-box;
 }
-.hero-section h1 { font-size: 4rem; line-height: 1.1; margin-top: 0; margin-bottom: 1.5rem; text-shadow: 0 2px 20px rgba(0, 0, 0, 0.7); }
+.hero-section h1 {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
+    /* !!! НОВОЕ: Для лучшей адаптации больших заголовков на маленьких экранах !!! */
+    word-break: break-word; /* Разрешить перенос слов, чтобы не вылезал за границы */
+    hyphens: auto; /* Помогает с переносами, если язык поддерживает */
+}
 .hero-subheading { font-size: 1.2rem; max-width: 700px; margin: 0 auto 2.5rem; font-weight: 400; text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7); }
 .hero-buttons { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
 .btn, .nav-button {
@@ -185,12 +194,9 @@ h2 {
     padding-bottom: 1.5rem;
     margin-bottom: 2rem;
 }
-
-/* !!! ИСПРАВЛЕНО: Добавляем отступ сверху ко второму блоку !!! */
 .about-item + .about-item {
-    margin-top: 2.5rem; 
+    margin-top: 2.5rem;
 }
-
 .about-card h3 { font-size: 1.5rem; margin-top: 0; margin-bottom: 1rem; }
 .about-card p { margin-bottom: 0; color: #333; }
 
@@ -250,7 +256,7 @@ h2 {
     padding: 3rem;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
     color: var(--dark-text);
-    max-width: 700px; /* !!! ИСПРАВЛЕНО: делаем карточку компактнее !!! */
+    max-width: 700px;
     margin: 0 auto;
 }
 .contacts-info h3 {
@@ -287,11 +293,27 @@ h2 {
     .navbar-center, .nav-socials { display: none; }
     .navbar-right { justify-content: flex-end; }
     .hamburger-button { display: flex; }
+
+    /* !!! ИЗМЕНЕНО: Скрываем nav-button на планшетах, если оно не нужно !!! */
+    .site-header .nav-button {
+        display: none !important;
+    }
 }
 
 @media (max-width: 768px) {
     body::before { background-attachment: scroll; }
-    h1 { font-size: 2.2rem !important; line-height: 1.2; } /* !!! ИСПРАВЛЕНО: уменьшаем шрифт !!! */
+    /* !!! ИЗМЕНЕНО: Регулируем размер h1 еще агрессивнее для старых/очень маленьких экранов !!! */
+    h1 {
+        font-size: 2rem !important; /* Уменьшаем до 2rem */
+        line-height: 1.1;
+        padding-left: 0.5rem; /* Небольшой отступ, чтобы текст не прилипал к краям */
+        padding-right: 0.5rem;
+    }
+    .hero-subheading {
+        font-size: 1rem; /* Чуть уменьшаем подзаголовок */
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
     h2, .about-card h2, .contacts-info h3 { font-size: 2rem !important; }
     .hero-section, .about-section, .features-section, .form-section, .faq-section, .contacts-section { padding-top: 5rem; padding-bottom: 5rem; }
     .site-header { background: rgba(17, 24, 39, 0.8); }
@@ -301,13 +323,12 @@ h2 {
     .navbar-right { display: none; }
     .hero-section { min-height: 80vh; }
     .hero-buttons { flex-direction: column; align-items: center; gap: 0.8rem; }
-    .btn { width: auto; padding: 0.8rem 2.5rem; } /* !!! ИСПРАВЛЕНО: компактные кнопки !!! */
+    .btn { width: auto; padding: 0.8rem 2.5rem; }
     .about-card, .form-container, .feature-card, .contacts-info { padding: 2rem 1.5rem; }
     .faq-question { font-size: 1rem; }
-    
-    /* !!! ИСПРАВЛЕНО: правильная работа выпадающего меню !!! */
+
     .mobile-nav {
-        display: flex; /* !!! ВАЖНО !!! */
+        display: flex;
         position: absolute;
         top: 80px;
         left: 0;
@@ -318,13 +339,12 @@ h2 {
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         text-align: center;
-        
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.4s ease-out;
     }
-    .mobile-nav.is-open { max-height: 500px; } /* Раскрываем меню */
-    
+    .mobile-nav.is-open { max-height: 500px; }
+
     .mobile-link, .mobile-button { color: var(--light-color); }
     .mobile-link { font-size: 1.2rem; font-weight: 500; padding: 1.2rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
     .mobile-button { background: rgba(255, 255, 255, 0.9); color: var(--dark-text); padding: 0.8rem; margin: 1rem auto; border-radius: 50px; font-weight: 500; width: 80%; }
@@ -333,4 +353,30 @@ h2 {
     .hamburger-button.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .hamburger-button.is-active span:nth-child(2) { opacity: 0; }
     .hamburger-button.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+}
+
+/* !!! НОВОЕ: Медиа-запрос для очень маленьких экранов (менее 480px) !!! */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem !important; /* Еще сильнее уменьшаем h1 для самых маленьких экранов */
+        line-height: 1.1;
+    }
+    .hero-subheading {
+        font-size: 0.9rem; /* Еще уменьшаем подзаголовок */
+    }
+    .btn {
+        width: 90%; /* Кнопки занимают почти всю ширину */
+        padding: 0.7rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    .about-card, .contacts-info {
+        padding: 1.5rem 1rem; /* Уменьшаем паддинги карточек */
+    }
+    .about-card h2, .contacts-info h3 {
+        font-size: 1.8rem !important;
+    }
+    .mobile-link {
+        font-size: 1.1rem;
+        padding: 1rem;
+    }
 }
