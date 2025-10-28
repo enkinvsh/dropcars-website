@@ -44,7 +44,7 @@ body {
     margin: 0;
     font-family: var(--font-family);
     line-height: 1.7;
-    font-size: 1.05rem; /* !!! ИЗМЕНЕНО: Базовый размер шрифта, чтобы h1 лучше масштабировался !!! */
+    font-size: 1.05rem;
     font-weight: 400;
     background-color: #111;
 }
@@ -145,9 +145,7 @@ h2 {
     margin-top: 0;
     margin-bottom: 1.5rem;
     text-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
-    /* !!! НОВОЕ: Для лучшей адаптации больших заголовков на маленьких экранах !!! */
-    word-break: break-word; /* Разрешить перенос слов, чтобы не вылезал за границы */
-    hyphens: auto; /* Помогает с переносами, если язык поддерживает */
+    /* !!! ИСПРАВЛЕНО: Убираем агрессивные переносы !!! */
 }
 .hero-subheading { font-size: 1.2rem; max-width: 700px; margin: 0 auto 2.5rem; font-weight: 400; text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7); }
 .hero-buttons { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
@@ -290,30 +288,20 @@ h2 {
    10. АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ
    ========================================================================== */
 @media (max-width: 992px) {
-    .navbar-center, .nav-socials { display: none; }
+    .navbar-center, .nav-socials, .site-header .nav-button { display: none !important; }
     .navbar-right { justify-content: flex-end; }
     .hamburger-button { display: flex; }
-
-    /* !!! ИЗМЕНЕНО: Скрываем nav-button на планшетах, если оно не нужно !!! */
-    .site-header .nav-button {
-        display: none !important;
-    }
 }
 
 @media (max-width: 768px) {
     body::before { background-attachment: scroll; }
-    /* !!! ИЗМЕНЕНО: Регулируем размер h1 еще агрессивнее для старых/очень маленьких экранов !!! */
+    
+    /* !!! ИСПРАВЛЕНО: Умное масштабирование шрифта для H1 !!! */
     h1 {
-        font-size: 2rem !important; /* Уменьшаем до 2rem */
-        line-height: 1.1;
-        padding-left: 0.5rem; /* Небольшой отступ, чтобы текст не прилипал к краям */
-        padding-right: 0.5rem;
+        font-size: clamp(2rem, 10vw, 2.8rem) !important;
+        line-height: 1.2;
     }
-    .hero-subheading {
-        font-size: 1rem; /* Чуть уменьшаем подзаголовок */
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
-    }
+    
     h2, .about-card h2, .contacts-info h3 { font-size: 2rem !important; }
     .hero-section, .about-section, .features-section, .form-section, .faq-section, .contacts-section { padding-top: 5rem; padding-bottom: 5rem; }
     .site-header { background: rgba(17, 24, 39, 0.8); }
@@ -322,6 +310,7 @@ h2 {
     .navbar-left { flex: 0; }
     .navbar-right { display: none; }
     .hero-section { min-height: 80vh; }
+    .hero-subheading { font-size: 1.1rem; }
     .hero-buttons { flex-direction: column; align-items: center; gap: 0.8rem; }
     .btn { width: auto; padding: 0.8rem 2.5rem; }
     .about-card, .form-container, .feature-card, .contacts-info { padding: 2rem 1.5rem; }
@@ -355,28 +344,6 @@ h2 {
     .hamburger-button.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 }
 
-/* !!! НОВОЕ: Медиа-запрос для очень маленьких экранов (менее 480px) !!! */
 @media (max-width: 480px) {
-    h1 {
-        font-size: 1.8rem !important; /* Еще сильнее уменьшаем h1 для самых маленьких экранов */
-        line-height: 1.1;
-    }
-    .hero-subheading {
-        font-size: 0.9rem; /* Еще уменьшаем подзаголовок */
-    }
-    .btn {
-        width: 90%; /* Кнопки занимают почти всю ширину */
-        padding: 0.7rem 1.5rem;
-        font-size: 0.9rem;
-    }
-    .about-card, .contacts-info {
-        padding: 1.5rem 1rem; /* Уменьшаем паддинги карточек */
-    }
-    .about-card h2, .contacts-info h3 {
-        font-size: 1.8rem !important;
-    }
-    .mobile-link {
-        font-size: 1.1rem;
-        padding: 1rem;
-    }
+    /* !!! ИСПРАВЛЕНО: Этот блок теперь не нужен, так как clamp() справляется лучше !!! */
 }
