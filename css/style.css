@@ -136,7 +136,7 @@ h2 {
     justify-content: center;
     text-align: center;
     min-height: 100vh;
-    padding: 6rem 1rem 4rem;
+    padding: 8rem 1rem 4rem;
     box-sizing: border-box;
 }
 .hero-section h1 {
@@ -303,7 +303,7 @@ h2 {
     }
     
     h2, .about-card h2, .contacts-info h3 { font-size: 2rem !important; }
-    .hero-section, .about-section, .features-section, .form-section, .faq-section, .contacts-section { padding-top: 5rem; padding-bottom: 5rem; }
+    .hero-section, .about-section, .features-section, .form-section, .faq-section, .contacts-section { padding-top: 7rem; padding-bottom: 5rem; }
     .site-header { background: rgba(17, 24, 39, 0.8); }
     .navbar { height: 70px; }
     .navbar-brand-text { font-size: 1.2rem; }
